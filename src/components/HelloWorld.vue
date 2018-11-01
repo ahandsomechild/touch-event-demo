@@ -1,6 +1,8 @@
 <template>
   <div class="hello">
-  <dragElement></dragElement>
+    <div style="height: 500px; width: 300px; border: 1px solid red; position: relative;">
+      <dragElement :parent="true" ></dragElement>
+    </div>
   </div>
 </template>
 

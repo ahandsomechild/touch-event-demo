@@ -188,20 +188,39 @@
               //滑动时距离浏览器左侧的距离
               this.moveX = ev.touches[0].clientX;
               this.moveY = ev.touches[0].clientY;
+              console.log(this.moveX,this.moveY)
               //实时的滑动的距离-起始位置=实时移动的位置
               this.disX = this.moveX-this.startX;
               this.disY = this.moveY-this.startY;
-              // console.log(this.disX)
-              if(this.disX<0 || this.disX == 0) {
-                  // this.slideEffect = 'transform:translateX(0px)';
-              }else if(this.disX>0){
-                  // this.slideEffect = 'transform:translateX('+this.disX+'px)';
-
-                  // 最大也只能等于删除按钮宽度 
-                  if(this.disX>=this.w) {
-                      // this.slideEffect = 'transform:translateX('+(btnWidth-btnImg)+'px)';
-                  }
+              this.top += this.disY; //move过程中实时改变top及left值
+              this.left += this.disX;
+              this.startX += this.disX; //每一次位置改变后touchmove的开始操作位置也需要改变
+              this.startY += this.disY;
+              if(this.top<0){
+                this.top = 0
               }
+              if(this.left<0){
+                this.left = 0;
+              }
+              if(this.left+this.w>this.parentW){
+                this.left = this.parentW - this.w;
+              }
+              if(this.top+this.h>this.parentH){
+                this.top = this.parentH - this.h;
+              }
+              // if(this.left+this.w>)
+              // if(this.top+this.h)
+              // if(this.disX<0 || this.disX == 0) {
+              //     // this.slideEffect = 'transform:translateX(0px)';
+              //     if(this.top<0||this.left)
+              // }else if(this.disX>0){
+              //     // this.slideEffect = 'transform:translateX('+this.disX+'px)';
+
+              //     // 最大也只能等于删除按钮宽度 
+              //     if(this.disX>=this.w) {
+              //         // this.slideEffect = 'transform:translateX('+(btnWidth-btnImg)+'px)';
+              //     }
+              // }
           }
       },
       touchEnd:function(ev){
@@ -214,6 +233,20 @@
               this.disX = endX-this.startX;
               this.disY = endY-this.startY;
               console.log("偏移了==="+this.disX,this.disY)
+              this.top += this.disY;
+              this.left += this.disX;
+              // if(this.top<0){
+              //   this.top = 0
+              // }
+              // if(this.left<0){
+              //   this.left = 0;
+              // }
+              // if(this.left+this.w>this.parentW){
+              //   this.left = this.parentW - this.w;
+              // }
+              // if(this.top+this.h>this.parentH){
+              //   this.top = this.parentH - this.h;
+              // }
               // console.log(this.disX,'this.disX')
               // console.log((btnWidth/2),'btnWidth/2');
               // if(this.disX < (btnWidth/2)) {
@@ -223,8 +256,7 @@
               //     //让字段显示出来，或者写你需要的逻辑
               //     this.isShow = true
               // }
-              this.top += this.disY;
-              this.left += this.disX
+              
           }
       },
       calculationParent () {
